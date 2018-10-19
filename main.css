@@ -1,0 +1,21 @@
+html {
+    background-color: #0099ff;
+    text-align: justify;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #000000;
+}
+#border {
+   /*
+    position: fixed;
+    border-style:solid;
+    border-color: #ffffb3;
+    width: 100vw;
+    height: 100vh;
+    border-width: 9px;
+    margin: -5px; */
+}
