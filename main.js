@@ -2,30 +2,22 @@ var button = function(name){
   return `<button type="button" class="btn btn-secondary"><h2>${name}</h2></button>`;
 }; //Use the single tilde dash thing [`] (note it's sideways). Do not use single quote ['].
 
-// var pictureMaker = function(url) {
-//   return `<img src="${url}"></img>`;
-// }
-
 $.getJSON("https://api.airtable.com/v0/appRgPBG5cZYXh0C4/Recipes?api_key=keyLvHnHrkGTXgLbx",
   function(data) {
-    var html = [];
-    var imageUrl = [];
+      var html = [];
 
     $.each(data.records, function(_index, record) {
-      var name = record.fields["Name"];
-      var type = record.fields["Meal Type"];
-      var servings = record.fields["Servings"];
-      var prepTime = record.fields["Prep Time"];
-      var images = record.fields["Food Image"];
+        var id = record.id;
+        var fields = record.fields;
+      var name = fields["Name"];
+      var type = fields["Meal Type"];
+      var servings = fields["Servings"];
+      var prepTime = fields["Prep Time"];
+      var images = fields["Food Image"] ? fields["Food Image"][0].url : "";
       var buttonName = button(name);
 
-      $.each(images, function(_index, attachment) {
-        var url = attachment["url"];
-        console.log(url);
-      })
-
       html.push(
-        `<img src="${url}></img> ${buttonName}<br>
+        `<img src="${images}"> ${buttonName}<br>
         <h3>${servings} servings, ${prepTime}</h3>`
       ); /* html.push is pushing the array titled html (defined in line 3). 'Push' pushes arrays. To have something push to somewhere else, I declare a new array (var mealtype = [];), fill that array ($.each(data.records, function(_index, record)) and then push to that array (mealtype.push('the rest of the commands'))*/
     });
