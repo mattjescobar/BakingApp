@@ -6,8 +6,12 @@
     line-height: 10px;
   }
   .recipes{
-    text-align: justify;
   }
-  .meal{
-    display: inline;
+  .container-fluid{
   }
+  img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100px;
+}
