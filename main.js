@@ -58,19 +58,16 @@ $.getJSON("https://api.airtable.com/v0/appRgPBG5cZYXh0C4/Recipes?api_key=keyLvHn
 );
 
 // Template that generates HTML for one item in our detail view, given the parameters passed in
-var detailView = function (id, name, pictureUrl, neighborhood, rating, address, cost, website, about, type, favorite, lat, long) {
+var detailView = function (id, name, images, servings, cooktime, instructions, website, favorite) {
   return `<div class="col-sm-12">
     <div class="card mb-4 box-shadow">
       ${favoriteButton(id, favorite)}
-      <img class="card-img-top" src="${pictureUrl}">
+      <img class="card-img-top" src="${images}">
       <div class="card-body">
         <h2>${name}</h2>
-        <p class="card-text">${type} in ${neighborhood}</p>
-        <p class="card-text">${address}</p>
-        ${about ? `<p class="card-text">${about}</p>` : ``}
+        <p class="card-text">Serves ${servings} Done in ${cooktime}</p>
+        <p class="card-text">${instructions}</p>
         <div class="d-flex justify-content-between align-items-center">
-          <small class="text-muted">${rating}</small>
-          <small class="text-muted">${cost}</small>
         </div>
         ${website ? `<a href="${website}">${website}</a>` : ``}
       </div>
@@ -90,18 +87,16 @@ var getDataForId = function (id) {
       var fields = record.fields;
 
       var name = fields["Name"];
-      var pictureUrl = fields["Pictures"] ? fields["Pictures"][0].url : "";
-      var neighborhood = fields["Neighborhood"];
-      var rating = fields["Rating"];
-      var address = fields["Address"];
-      var cost = fields["Cost"];
+      var images = fields["Food Image"] ? fields["Food Image"][0].url : "";
+      var type = fields["Meal Type"];
+      var servings = fields["Servings"];
       var website = fields["sourced From"];
-      var about = fields["About"]; //
+      var instructions = fields["Instructions"]; //
       var type = fields["Meal Type"]; //mine
       var favorite = fields["Favorite"]; //eh
 
       // Pass all fields into the Detail Template
-      var itemHTML = detailView(id, name, pictureUrl, neighborhood, rating, address, cost, website, about, type, favorite, lat, long);
+      var itemHTML = detailView(id, name, images, servings, cooktime, instructions, website, favorite);
       html.push(itemHTML);
       html.push(`</div>`);
       $(".detail-view").append(html.join(""));
