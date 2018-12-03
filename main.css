@@ -1,9 +1,10 @@
-.title{
-    margin: auto;
-    width: 80%;
-    border: 3px solid green;
-    text-align: center;
-    line-height: 10px;
-  }
   .recipes{
+    margin: auto;
   }
+  .navbar{
+    background-color: #44cc00 !important 
+  }
+
+  .jumbotron {
+    background-color: rgba(85, 255, 0, 0.5) !important; 
+}
