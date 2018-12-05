@@ -25,26 +25,34 @@ var listView = function (id, name, images, servings, cooktime) {
   </div>`;
 };
 
+var navbar = function (){
+  return `<nav class="navbar navbar-light" style="background-color: green;">
+  <a class="navbar-brand" href="index.html">STT</a>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>`;
+}
+
+var jumbotron = function() {
+  return `<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Set the Table</h1>
+    <p class="lead">what are you hungry for today?</p>
+  </div>
+</div>`;
+}
+
 var getAllRecords = function () {
   $.getJSON("https://api.airtable.com/v0/appRgPBG5cZYXh0C4/Recipes?api_key=keyLvHnHrkGTXgLbx",
     function (data) {
-      var topbar = []
+      var topbar = [];
       var html = [];
-
-      topbar.push(`
-      <nav class="navbar navbar-light" style="background-color: green;">
-        STT
-        Far right: Submit
-        Far right: search
-      </nav>
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">Set the Table</h1>
-          <p class="lead">what are you hungry for today?</p>
-        </div>
-      </div>`)
-      $(".topbar").append(topbar);
-      // console.log(topbar);
+      
+      $(".topbar").append(navbar);
+      $(".topbar").append(jumbotron);
+      console.log(topbar);
 
       html.push(`<div class="row">`);
       $.each(data.records, function (_index, record) {
@@ -71,13 +79,8 @@ var getAllRecords = function () {
 
 // Template that generates HTML for one item in our detail view, given the parameters passed in
 var detailView = function (name, images, servings, website, instructions, preptime, cooktime, ingredients) {
+  $(".topbar").append(navbar);
   return `
-  <nav class="navbar navbar-light" style="background-color: green;">
-  STT
-  Far right: Submit
-  Far right: search
-  </nav>
-
   <div class="col-sm-12">
     <div class="card mb-4 box-shadow">
       <img class="card-img-top" src="${images}">
