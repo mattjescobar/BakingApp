@@ -2,7 +2,9 @@
     margin: auto;
   }
   .navbar{
-    background-color: #44cc00 !important 
+    background-color: #44cc00 !important;
+    font-weight: bold;
+    color: white;
   }
 
   .jumbotron {

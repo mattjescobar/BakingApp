@@ -8,7 +8,6 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-
 // Template that generates the HTML for one item in our list view, given the parameters passed in
 var listView = function (id, name, images, servings, cooktime) {
   return `
@@ -29,11 +28,12 @@ var listView = function (id, name, images, servings, cooktime) {
 var getAllRecords = function () {
   $.getJSON("https://api.airtable.com/v0/appRgPBG5cZYXh0C4/Recipes?api_key=keyLvHnHrkGTXgLbx",
     function (data) {
+      var topbar = []
       var html = [];
 
-      html.push(`
+      topbar.push(`
       <nav class="navbar navbar-light" style="background-color: green;">
-        Set The Table
+        STT
         Far right: Submit
         Far right: search
       </nav>
@@ -43,10 +43,13 @@ var getAllRecords = function () {
           <p class="lead">what are you hungry for today?</p>
         </div>
       </div>`)
+      $(".topbar").append(topbar);
+      // console.log(topbar);
+
       html.push(`<div class="row">`);
       $.each(data.records, function (_index, record) {
         var id = record.id;
-        console.log(id);
+        // console.log(id);
         var fields = record.fields;
         var name = fields["Name"];
         var type = fields["Meal Type"];
@@ -60,7 +63,7 @@ var getAllRecords = function () {
 
         html.push(itemHTML);
       });
-      html.push('</div>')
+      html.push(`</div>`);
       $(".recipes").append(html.join(""));
     }
   )
@@ -70,7 +73,7 @@ var getAllRecords = function () {
 var detailView = function (name, images, servings, website, instructions, preptime, cooktime, ingredients) {
   return `
   <nav class="navbar navbar-light" style="background-color: green;">
-  Set The Table
+  STT
   Far right: Submit
   Far right: search
   </nav>
@@ -96,7 +99,7 @@ var getOneRecord = function (id) {
       var html = [];
       var fields = record.fields;
       var name = fields["Name"];
-      var images = fields["Food Image"] ? fields["Food Image"][0].url : "";
+      var images = fields["Food Image"] ? fields["Food Image"][0].thumbnails.large.url : "";
       var servings = fields["Servings"];
       var website = fields["sourced From"];
       var preptime = fields["Prep Time"];
